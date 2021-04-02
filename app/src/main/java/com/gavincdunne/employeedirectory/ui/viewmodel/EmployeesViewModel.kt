@@ -32,20 +32,35 @@ class EmployeesViewModel @Inject constructor(
             }
     }
 
+    /**
+     * Emits Events.Loading state to fragment UI
+     */
     private fun showLoading() = viewModelScope.launch {
         _events.value = Events.Loading
     }
 
+    /**
+     * Emits Events.Success state to fragment UI
+     */
     private fun showSuccess() = viewModelScope.launch {
         _events.value = Events.Success
     }
 
+    /**
+     * Emits Events.Empty state to fragment UI
+     */
     private fun showEmpty() = viewModelScope.launch {
         _events.value = Events.Empty
     }
 
-    private fun showError(error: String) = viewModelScope.launch {
-        _events.value = Events.Error(error)
+    /**
+     * Emits Events.Error state to fragment UI
+     * @param error a string message error returned from repository.getEmployees()
+     */
+    private fun showError(error: String?) = viewModelScope.launch {
+        error?.let { _events.value = Events.Error(error) }
+            ?: run { _events.value = Events.Error("There was an unknown error.") }
+
     }
 
     sealed class Events {
