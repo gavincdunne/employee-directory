@@ -36,7 +36,7 @@ class EmployeesFragment : Fragment(R.layout.fragment_employees) {
 
         // Observes employees and updates the recycler adapter with new list
         viewModel.employees.observe(viewLifecycleOwner) {
-            employeesAdapter.submitList(it.employees)
+            employeesAdapter.submitList(it.employees.sortedBy { e -> e.fullName })
         }
 
         // Observes event state and updates UI
