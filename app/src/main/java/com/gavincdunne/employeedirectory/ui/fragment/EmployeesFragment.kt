@@ -34,10 +34,12 @@ class EmployeesFragment : Fragment(R.layout.fragment_employees) {
             }
         }
 
+        // Observes employees and updates the recycler adapter with new list
         viewModel.employees.observe(viewLifecycleOwner) {
             employeesAdapter.submitList(it.employees)
         }
 
+        // Observes event state and updates UI
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.events.collect { event ->
                 when (event) {
