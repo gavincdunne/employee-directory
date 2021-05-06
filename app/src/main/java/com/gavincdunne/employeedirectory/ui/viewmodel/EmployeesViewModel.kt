@@ -18,12 +18,12 @@ class EmployeesViewModel @Inject constructor(
     val events: StateFlow<Events> = _events
 
     val employees = liveData {
-        repository.getEmployees()
+        repository.readEmployees()
             .onStart { showLoading() }
             .catch { showError(it.localizedMessage) }
             .onCompletion {  }
             .collect {
-                if (it.employees.isEmpty()) {
+                if (it.isEmpty()) {
                     showEmpty()
                 } else {
                     emit(it)

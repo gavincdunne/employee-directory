@@ -9,7 +9,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gavincdunne.employeedirectory.R
-import com.gavincdunne.employeedirectory.data.entity.Employee
+import com.gavincdunne.employeedirectory.data.local.entity.Employee
 import com.gavincdunne.employeedirectory.databinding.EmployeesListItemBinding
 
 class EmployeesAdapter : ListAdapter<Employee, EmployeesAdapter.EmployeesViewHolder>(DiffCallback()) {
