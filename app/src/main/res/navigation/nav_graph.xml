@@ -8,6 +8,22 @@
     <fragment
         android:id="@+id/employeesFragment"
         android:name="com.gavincdunne.employeedirectory.ui.fragment.EmployeesFragment"
-        android:label="fragment_employees"
-        tools:layout="@layout/fragment_employees" />
+        android:label="Employee Directory"
+        tools:layout="@layout/fragment_employees">
+        <action
+            android:id="@+id/action_employeesFragment_to_employeeDetailFragment"
+            app:destination="@id/employeeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeDetailFragment"
+        android:name="com.gavincdunne.employeedirectory.ui.fragment.EmployeeDetailFragment"
+        android:label="{name}"
+        tools:layout="@layout/fragment_employee_detail">
+        <argument
+            android:name="employee"
+            app:argType="com.gavincdunne.employeedirectory.data.entity.Employee" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
 </navigation>

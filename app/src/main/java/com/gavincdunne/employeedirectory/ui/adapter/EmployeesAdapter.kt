@@ -12,7 +12,7 @@ import com.gavincdunne.employeedirectory.R
 import com.gavincdunne.employeedirectory.data.entity.Employee
 import com.gavincdunne.employeedirectory.databinding.EmployeesListItemBinding
 
-class EmployeesAdapter : ListAdapter<Employee, EmployeesAdapter.EmployeesViewHolder>(DiffCallback()) {
+class EmployeesAdapter(private val listener: ItemClickListener) : ListAdapter<Employee, EmployeesAdapter.EmployeesViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeesViewHolder {
         val binding = EmployeesListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return EmployeesViewHolder(binding)
@@ -26,6 +26,15 @@ class EmployeesAdapter : ListAdapter<Employee, EmployeesAdapter.EmployeesViewHol
     inner class EmployeesViewHolder(private val binding: EmployeesListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(employee: Employee) {
             binding.apply {
+
+                root.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val selectedEmployee = getItem(position)
+                        listener.onClick(selectedEmployee)
+                    }
+                }
+
                 employeeName.text = employee.fullName
                 employeeTeam.text = employee.team
 
@@ -42,6 +51,10 @@ class EmployeesAdapter : ListAdapter<Employee, EmployeesAdapter.EmployeesViewHol
                     .into(employeeAvatar)
             }
         }
+    }
+
+    interface ItemClickListener {
+        fun onClick(employee: Employee)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Employee>() {
